@@ -42,6 +42,7 @@ def check(root: Path = ROOT) -> list[str]:
         "references/automation-playbook.md", "references/adaptive-discovery.md",
         "references/stage-gates.md", "references/sufficiency-evaluation.md",
         "references/automation-coordinator.md", "references/v1.3-demonstrations.md",
+        "references/chief-engineer-persona.md",
         "assets/decision-session-template.md", "assets/automation-blueprint.md",
     ]:
         if not (root / expected).is_file():

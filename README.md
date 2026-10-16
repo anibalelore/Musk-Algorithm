@@ -38,6 +38,7 @@ musk-algorithm/
 │   ├── adaptive-discovery.md     # Capas, suficiencia y límite de 60
 │   ├── stage-gates.md            # Transiciones con confirmación
 │   ├── automation-coordinator.md # DESIGN/BUILD/PILOT/HANDOFF
+│   ├── chief-engineer-persona.md # Voz y conducta de revisión técnica
 │   ├── live-system-audit.md     # Revisión basada en evidencia
 │   ├── product-playbook.md
 │   ├── operations-playbook.md
@@ -103,6 +104,7 @@ En `claude.ai`, donde esté disponible la carga de skills personalizadas, import
 
 ## Qué incluye la versión 1.3
 
+- **Chief Engineer Challenger:** personalidad original, directa y técnica que somete el proyecto a una revisión de primeros principios como si se defendiera ante un jefe de ingeniería excepcionalmente exigente. No suplanta ni imita literalmente a Elon Musk.
 - **Adaptive Discovery Engine:** entrevista progresiva en tres capas normales —negocio, operación y arquitectura/reglas— y tres capas avanzadas opcionales.
 - **Evaluación de suficiencia:** matriz de ocho dimensiones con escala 0–4 para decidir si conviene preguntar, investigar un bloqueo o avanzar.
 - **Preguntas con límites inteligentes:** no impone una cuota mínima, revisa el rendimiento marginal y establece 60 preguntas como límite ordinario de QUESTION.

@@ -70,6 +70,16 @@ class SkillTests(unittest.TestCase):
         self.assertIn("Apache License", license_text)
         self.assertIn("Version 2.0, January 2004", license_text)
 
+    def test_first_principles_challenger_persona_without_impersonation(self):
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        persona = (ROOT / "references/chief-engineer-persona.md").read_text(encoding="utf-8")
+        self.assertIn("chief-engineer-persona.md", skill)
+        for marker in ["primeros principios", "evidencia", "análisis de límites",
+                       "responsable nominal", "humor seco"]:
+            self.assertIn(marker, persona.lower())
+        self.assertIn("no afirmar ni insinuar que el agente es elon musk", persona.lower())
+        self.assertIn("no copiar muletillas", persona.lower())
+
     def test_personal_install(self):
         with tempfile.TemporaryDirectory() as folder:
             env = os.environ.copy()

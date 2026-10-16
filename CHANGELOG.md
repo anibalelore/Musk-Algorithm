@@ -2,6 +2,7 @@
 
 ## 1.3.0 — 2026-10-16
 
+- Personalidad `Chief Engineer Challenger`: revisión directa por primeros principios, evidencia, responsables y análisis de límites, sin suplantar figuras públicas.
 - Licencia del proyecto actualizada a Apache License 2.0.
 - Descubrimiento adaptativo en tres capas normales y tres opcionales, sin cuotas mínimas.
 - Matriz de suficiencia 0–4, revisión de rendimiento marginal y límite ordinario de 60 preguntas.
