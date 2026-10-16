@@ -63,6 +63,13 @@ class SkillTests(unittest.TestCase):
         for stage in ["QUESTION", "DELETE", "SIMPLIFY", "ACCELERATE", "AUTOMATE"]:
             self.assertIn(stage, demo)
 
+    def test_apache_2_license(self):
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        license_text = (ROOT / "LICENSE").read_text(encoding="utf-8")
+        self.assertIn("license: Apache-2.0", skill)
+        self.assertIn("Apache License", license_text)
+        self.assertIn("Version 2.0, January 2004", license_text)
+
     def test_personal_install(self):
         with tempfile.TemporaryDirectory() as folder:
             env = os.environ.copy()

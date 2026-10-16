@@ -2,6 +2,7 @@
 
 ## 1.3.0 — 2026-10-16
 
+- Licencia del proyecto actualizada a Apache License 2.0.
 - Descubrimiento adaptativo en tres capas normales y tres opcionales, sin cuotas mínimas.
 - Matriz de suficiencia 0–4, revisión de rendimiento marginal y límite ordinario de 60 preguntas.
 - Smart Stage Gate con cierre formal, confirmación predeterminada y `auto_advance_enabled` opcional.

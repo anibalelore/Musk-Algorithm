@@ -7,7 +7,8 @@
 
 **Idioma:** español por defecto, responde en el idioma del usuario  
 **Formato:** [Agent Skills](https://agentskills.io/specification) (`SKILL.md`)  
-**Licencia:** MIT  
+**Licencia:** Apache License 2.0
+
 **Dependencias:** ninguna para ejecutar la skill; Python 3.9+ solo para el instalador/validador opcional.
 
 Esta implementación es **no oficial**; no está afiliada a Elon Musk, Tesla, SpaceX ni Everyday Astronaut. Su metodología toma como referencia la explicación de los cinco pasos durante el [recorrido de Starbase de 2021](https://everydayastronaut.com/starbase-tour-and-interview-with-elon-musk/).

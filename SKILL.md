@@ -1,7 +1,7 @@
 ---
 name: musk-algorithm
 description: "Consultor interactivo para negocios nuevos y sistemas existentes: cuestiona, elimina, simplifica, acelera y finalmente diseña o implementa automatizaciones aprobadas con herramientas disponibles. Entrevista al usuario, audita repositorios y procesos, negocia decisiones, produce planos ejecutables y verifica resultados; no despliega sin permiso."
-license: MIT
+license: Apache-2.0
 compatibility: "Estándar Agent Skills; funciona sin API keys, ORE Skill ni dependencias externas. Las auditorías de código requieren herramientas de lectura del host. Los scripts opcionales requieren Python 3.9+."
 metadata:
   version: "1.3.0"
