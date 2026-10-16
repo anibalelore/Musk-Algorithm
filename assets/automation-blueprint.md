@@ -5,7 +5,7 @@
 **ID:**
 **Proyecto / dueño:**
 **Estado:** PROPOSED | APPROVED | BUILDING | TESTED | PILOT | LIVE | PAUSED
-**Modo:** BLUEPRINT | BUILD | PILOT | HANDOFF
+**Modo:** DESIGN | BUILD | PILOT | HANDOFF
 **Autorización de acceso / editar / pilotear / desplegar:** [cuatro permisos distintos]
 
 ## Justificación

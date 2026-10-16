@@ -36,12 +36,14 @@ class SkillTests(unittest.TestCase):
         self.assertIn("APPROVED", interview)
         self.assertIn("No declarar", system)
         self.assertTrue((ROOT / "assets/decision-session-template.md").is_file())
-        self.assertIn('version: "1.2.0"', text)
+        self.assertIn('version: "1.3.0"', text)
+        self.assertIn("Adaptive Discovery Engine", text)
+        self.assertIn("Smart Stage Gate Manager", text)
 
     def test_automation_execution(self):
         skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         execution = (ROOT / "references/automation-execution.md").read_text(encoding="utf-8")
-        for mode in ["BLUEPRINT", "BUILD", "PILOT", "HANDOFF"]:
+        for mode in ["DESIGN", "BUILD", "PILOT", "HANDOFF"]:
             self.assertIn(mode, skill)
             self.assertIn(mode, execution)
         self.assertIn("no desplegar", skill.lower())
@@ -50,10 +52,22 @@ class SkillTests(unittest.TestCase):
         self.assertTrue((ROOT / "assets/automation-blueprint.md").exists())
         self.assertTrue((ROOT / "assets/automation-handoff.md").exists())
 
+    def test_v13_resources_and_demonstrations(self):
+        for relative in [
+            "references/adaptive-discovery.md", "references/stage-gates.md",
+            "references/sufficiency-evaluation.md", "references/automation-coordinator.md",
+            "references/v1.3-demonstrations.md", "scripts/session_engine.py",
+        ]:
+            self.assertTrue((ROOT / relative).is_file(), relative)
+        demo = (ROOT / "references/v1.3-demonstrations.md").read_text(encoding="utf-8")
+        for stage in ["QUESTION", "DELETE", "SIMPLIFY", "ACCELERATE", "AUTOMATE"]:
+            self.assertIn(stage, demo)
+
     def test_personal_install(self):
         with tempfile.TemporaryDirectory() as folder:
             env = os.environ.copy()
             env["HOME"] = folder
+            env["USERPROFILE"] = folder
             installer = str(ROOT / "scripts/install.py")
             run = subprocess.run([sys.executable, installer, "--agent", "both", "--scope", "user"],
                                  env=env, capture_output=True, text=True, check=False)

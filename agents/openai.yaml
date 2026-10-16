@@ -1,4 +1,4 @@
 interface:
   display_name: "Musk Algorithm"
-  short_description: "Consultoría interactiva para negocios nuevos y sistemas existentes."
-  default_prompt: "Usa musk-algorithm como consultor: pregúntame de forma progresiva para comprender el negocio, o audita el sistema existente si tienes acceso. Propón qué mantener, simplificar, eliminar y posponer, y espera mis decisiones antes de proponer implementaciones."
+  short_description: "Descubrimiento adaptativo y automatización verificable en cinco etapas."
+  default_prompt: "Usa musk-algorithm para comprender el negocio por capas, evaluar cuándo hay información suficiente, cerrar cada etapa con una recomendación y llevar el análisis hasta una automatización diseñada, construida, pilotada o transferida según mis permisos."

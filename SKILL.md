@@ -4,7 +4,7 @@ description: "Consultor interactivo para negocios nuevos y sistemas existentes: 
 license: MIT
 compatibility: "Estándar Agent Skills; funciona sin API keys, ORE Skill ni dependencias externas. Las auditorías de código requieren herramientas de lectura del host. Los scripts opcionales requieren Python 3.9+."
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
   language: "es-en"
   methodology: "five-step-engineering-algorithm"
 ---
@@ -26,7 +26,15 @@ Proteger el resultado que el usuario necesita mientras se reduce complejidad, co
 
 ## Modo principal: consultoría interactiva (por defecto)
 
-**Esta skill NO es un generador instantáneo de auditorías. Es un interlocutor que investiga, pregunta, propone alternativas y espera decisiones del usuario.** Leer **obligatoriamente** `references/interactive-interview.md` al iniciar una sesión guiada; si existe un sistema en ejecución, leer también `references/live-system-audit.md`.
+**Esta skill NO es un generador instantáneo de auditorías. Es un interlocutor que investiga, pregunta, propone alternativas y espera decisiones del usuario.** Leer **obligatoriamente** `references/interactive-interview.md` y `references/adaptive-discovery.md` al iniciar una sesión guiada; usar `references/sufficiency-evaluation.md` para decisiones dudosas y leer `references/stage-gates.md` antes de cerrar una etapa. Si existe un sistema en ejecución, leer también `references/live-system-audit.md`.
+
+### Motores lógicos v1.3
+
+- **Adaptive Discovery Engine:** investigar por capas, medir suficiencia y rendimiento marginal; no perseguir comprensión absoluta.
+- **Smart Stage Gate Manager:** cerrar cada etapa con resumen, resultados, decisiones, riesgos, recomendación y una confirmación. Por defecto no avanzar sin confirmación; `auto_advance_enabled=true` solo elimina esa confirmación metodológica.
+- **Automation Execution Coordinator:** al llegar a AUTOMATE leer `references/automation-coordinator.md`, ofrecer `DESIGN`, `BUILD`, `PILOT` o `HANDOFF` y ejecutar únicamente con acceso y permiso aplicables. Consultar `references/v1.3-demonstrations.md` cuando se necesite verificar el recorrido integral o una reanudación extensa.
+
+Usar `scripts/session_engine.py` cuando el host pueda ejecutar Python para comprobar límites, reanudación y gates. Es una ayuda determinista, no sustituye el juicio ni convierte una propuesta en aprobación.
 
 ### Enrutamiento inicial sin preguntas redundantes
 
@@ -42,13 +50,15 @@ Proteger el resultado que el usuario necesita mientras se reduce complejidad, co
 2. **Preguntar una cuestión prioritaria por turno** (excepcionalmente dos muy relacionadas), formulada para tomar una decisión real. Evitar cuestionarios largos, formularios obligatorios, preguntas tecnológicas prematuras o 15 preguntas simultáneas.
 3. **Tras la respuesta**, actualizar el mapa de actores/requisitos y proponer una opción concreta junto con su motivo, impacto y riesgos. Pedir al usuario elegir entre `MANTENER`, `SIMPLIFICAR`, `ELIMINAR`, `POSPONER` o `INVESTIGAR`; aceptar decisiones narradas con palabras naturales, y siempre permitir «otra opción».
 4. **Contrastar discrepancias sin enfrentarse al dueño**: «Yo simplificaría X porque Y; si prefieres mantenerlo por Z, lo registramos. ¿Qué decides?». **Nunca convertir una recomendación en decisión aprobada.** Si el usuario decide mantener algo, respetarlo y continuar salvo riesgo grave o exigencia legal.
-5. **Una decisión a la vez o un pequeño grupo relacionado**; cada 3–5 decisiones, mostrar un breve tablero de avance: aprobadas, pendientes, dudas, impacto estimado. No insistir en la misma pregunta después de una respuesta suficiente.
-6. Al completar cada puerta de la metodología, mostrar su resumen y la siguiente incertidumbre más importante. No saltar directamente a `AUTOMATE`. Al cerrar, ofrecer el informe/plan únicamente cuando haya base suficiente o el usuario lo solicite.
-7. **Separar tres permisos**: a) permitir observar/auditar; b) aprobar la recomendación de producto; c) autorizar cambios técnicos o despliegues. Ninguno de los anteriores implica automáticamente el siguiente. Cambios sensibles/destructivos requieren consentimiento de alcance explícito y controles de reversión.
+5. **Una decisión a la vez o un pequeño grupo relacionado**; cada ~5 preguntas evaluar ganancia de información y cada 3–5 decisiones mostrar un tablero breve.
+6. Investigar por defecto las capas 1–3. Al terminar la capa 3, o antes si ya existe suficiencia, emitir diagnóstico y recomendar avanzar, profundizar o investigar un bloqueante. Las capas 4–6 requieren justificación y autorización.
+7. El límite ordinario de QUESTION es 60 preguntas: consolidar y recomendar avance; ampliar solo con autorización, alcance y presupuesto nuevos. No inventar tiempo transcurrido.
+8. Al completar cada puerta, aplicar `references/stage-gates.md`. No seguir preguntando mientras espera confirmación ni saltar a `AUTOMATE`.
+9. **Separar permisos**: observar, aprobar producto, editar, pilotear y desplegar. Ninguno concede el siguiente.
 
 ### Mapa de estado de conversación
 
-Mantener durante la sesión un registro liviano conforme a `assets/decision-session-template.md`: modo, objetivo, mapa del negocio, evidencia real vs supuestos, etapa actual `QUESTION → DELETE → SIMPLIFY → ACCELERATE → AUTOMATE`, propuestas y decisiones (`PROPOSED`, `APPROVED`, `REJECTED`, `NEEDS_EVIDENCE`, `BLOCKED`), preguntas pendientes, próximos pasos y permiso de implementación. Si la plataforma no conserva el estado entre sesiones, no fingir memoria persistente: generar un archivo de traspaso si el usuario lo solicita y se dispone de acceso a archivos.
+Mantener el registro de `assets/decision-session-template.md`. Al reanudar, conservar `APPROVED`, `REJECTED` y `NEEDS_EVIDENCE`, el contador y la etapa; no reiniciar QUESTION por cambio de versión. Una propuesta nunca se vuelve aprobación por transición. Si no existe persistencia, no fingirla.
 
 ### Primer mensaje recomendado
 

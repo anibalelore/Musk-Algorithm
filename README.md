@@ -3,7 +3,8 @@
 > **Skill independiente** para cuestionar requisitos, eliminar complejidad, simplificar procesos, acelerar ciclos y automatizar únicamente cuando tiene sentido.
 
 **Identificador instalable:** `musk-algorithm`  
-**Versión:** 1.2.0  
+**Versión:** 1.3.0
+
 **Idioma:** español por defecto, responde en el idioma del usuario  
 **Formato:** [Agent Skills](https://agentskills.io/specification) (`SKILL.md`)  
 **Licencia:** MIT  
@@ -19,7 +20,7 @@ Esta implementación es **no oficial**; no está afiliada a Elon Musk, Tesla, Sp
 4. **ACCELERATE:** mide tiempos y elimina cuellos de botella.
 5. **AUTOMATE:** automatiza solo cuando el proceso es útil, estable y verificable.
 
-Primero conversa contigo para entender el negocio. Si ya hay un sistema, inspecciona las fuentes disponibles antes de emitir recomendaciones, luego **te pregunta qué mantener, simplificar, eliminar o posponer**. Solo después produce un diagnóstico con decisiones `KEEP`, `DELETE`, `SIMPLIFY`, `DEFER`, `VALIDATE` y `AUTOMATE_LATER`, flujos antes/después, riesgos y plan de ejecución. **En la fase 5**, puede entregar un plano (`BLUEPRINT`), implementar código con acceso y permiso (`BUILD`), validar piloto (`PILOT`) o preparar un traspaso (`HANDOFF`). No modifica sistemas sin autorización. No depende de ORE Skill ni debe instalarse dentro de su repositorio.
+Primero conversa contigo para entender el negocio. Si ya hay un sistema, inspecciona las fuentes disponibles antes de emitir recomendaciones, luego **te pregunta qué mantener, simplificar, eliminar o posponer**. Solo después produce un diagnóstico con decisiones `KEEP`, `DELETE`, `SIMPLIFY`, `DEFER`, `VALIDATE` y `AUTOMATE_LATER`, flujos antes/después, riesgos y plan de ejecución. **En la fase 5**, puede diseñar un plano (`DESIGN`), implementar código con acceso y permiso (`BUILD`), validar un piloto (`PILOT`) o preparar un traspaso (`HANDOFF`). No modifica sistemas sin autorización. No depende de ORE Skill ni debe instalarse dentro de su repositorio.
 
 ## Estructura
 
@@ -33,6 +34,9 @@ musk-algorithm/
 ├── assets/automation-handoff.md        # Traspaso sin acceso técnico
 ├── references/
 │   ├── interactive-interview.md  # Entrevista guiada y aprobaciones
+│   ├── adaptive-discovery.md     # Capas, suficiencia y límite de 60
+│   ├── stage-gates.md            # Transiciones con confirmación
+│   ├── automation-coordinator.md # DESIGN/BUILD/PILOT/HANDOFF
 │   ├── live-system-audit.md     # Revisión basada en evidencia
 │   ├── product-playbook.md
 │   ├── operations-playbook.md
@@ -44,7 +48,7 @@ musk-algorithm/
 ├── scripts/
 │   ├── install.py                # Instalador opcional (Claude Code/Codex)
 │   └── validate.py               # Validador básico
-├── tests/test_skill.py           # Pruebas sin dependencias
+├── tests/                        # Pruebas de formato y simulación
 ├── README.md
 ├── CHANGELOG.md
 └── LICENSE
@@ -96,7 +100,26 @@ Copia **toda** la carpeta `musk-algorithm/` a:
 
 En `claude.ai`, donde esté disponible la carga de skills personalizadas, importa el ZIP desde las opciones de personalización/Skills. La compatibilidad de carga de ZIP depende de las funciones habilitadas en la cuenta; no se instala desde este chat automáticamente.
 
-## Cómo funciona la conversación (lo principal de v1.1)
+## Qué incluye la versión 1.3
+
+- **Adaptive Discovery Engine:** entrevista progresiva en tres capas normales —negocio, operación y arquitectura/reglas— y tres capas avanzadas opcionales.
+- **Evaluación de suficiencia:** matriz de ocho dimensiones con escala 0–4 para decidir si conviene preguntar, investigar un bloqueo o avanzar.
+- **Preguntas con límites inteligentes:** no impone una cuota mínima, revisa el rendimiento marginal y establece 60 preguntas como límite ordinario de QUESTION.
+- **Smart Stage Gate Manager:** cada etapa termina con resumen, resultados, decisiones, riesgos, recomendación y confirmación para continuar.
+- **Continuidad de sesiones:** conserva etapa, contador, evidencia y estados `APPROVED`, `REJECTED` y `NEEDS_EVIDENCE`, incluso en auditorías extensas.
+- **Automation Architect & Implementer:** convierte oportunidades estables en `DESIGN`, `BUILD`, `PILOT` o `HANDOFF`, eligiendo la tecnología más sencilla adecuada.
+- **Separación de permisos:** avanzar metodológicamente nunca concede permiso para editar, pilotear o desplegar.
+- **Motor verificable sin dependencias:** `scripts/session_engine.py` permite comprobar suficiencia, transiciones, recuperación y elegibilidad de automatizaciones.
+- **Pruebas conductuales:** simulan negocios pequeños y complejos, límite de preguntas, sesiones históricas y automatizaciones con o sin acceso técnico.
+- **Demostraciones completas:** ejemplos desde QUESTION hasta AUTOMATE, auditoría de un sistema existente y recuperación de una sesión extensa.
+
+### Cómo avanza el descubrimiento
+
+QUESTION usa tres capas normales —negocio, operación, arquitectura/reglas— y hasta tres capas avanzadas solo con justificación y permiso. Una matriz 0–4 evalúa ocho dimensiones esenciales. No hay cuota mínima; a 60 preguntas se consolida el diagnóstico y cualquier ampliación requiere alcance y presupuesto nuevos.
+
+Cada etapa termina con resultados, decisiones, riesgos y una recomendación. En modo interactivo se confirma una vez antes de avanzar; `auto_advance_enabled=true` automatiza transiciones metodológicas, nunca permisos técnicos. Una sesión guardada conserva contadores y estados históricos.
+
+## Cómo funciona la conversación
 
 La skill tiene dos entradas **sin dependencia de ORE**:
 
@@ -126,9 +149,9 @@ No interroga con 30 preguntas: **una pregunta prioritaria por turno**. Nunca asu
 - «Revisa el onboarding: dame una matriz KEEP / DELETE / SIMPLIFY / DEFER / VALIDATE.»
 - «Modo `quick`: cuestiona esta función antes de que la construyamos.»
 
-## Paso 5: automatización guiada o ejecutada (v1.2)
+## Paso 5: automatización guiada o ejecutada
 
-- `BLUEPRINT`: especificación con evento, datos, reglas, APIs, errores, pruebas, costo y métrica.
+- `DESIGN`: blueprint con evento, datos, reglas, APIs, errores, pruebas, costo y métrica.
 - `BUILD`: si el agente tiene acceso a tu código y permiso, modifica **solo el alcance autorizado**, crea tests y documenta evidencias. Requiere entorno que permita leer/escribir/ejecutar; instalar una skill no concede esos accesos.
 - `PILOT`: ejecuta pruebas controladas (no confundir mocks con una integración real); producción requiere permiso separado.
 - `HANDOFF`: si falta acceso o conocimiento especializado, crea un paquete para otro agente o desarrollador, sin dependencia de ORE Skill.

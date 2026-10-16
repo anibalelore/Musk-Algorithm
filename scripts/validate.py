@@ -37,9 +37,20 @@ def check(root: Path = ROOT) -> list[str]:
     for referenced in re.findall(r"(?<![\w/])(?:references|assets)/[\w.-]+(?:\.md|\.json)", text):
         if not (root / referenced).is_file():
             errors.append(f"Referencia ausente: {referenced}")
-    for expected in ["README.md", "LICENSE", "scripts/install.py", "references/automation-playbook.md"]:
+    for expected in [
+        "README.md", "LICENSE", "scripts/install.py", "scripts/session_engine.py",
+        "references/automation-playbook.md", "references/adaptive-discovery.md",
+        "references/stage-gates.md", "references/sufficiency-evaluation.md",
+        "references/automation-coordinator.md", "references/v1.3-demonstrations.md",
+        "assets/decision-session-template.md", "assets/automation-blueprint.md",
+    ]:
         if not (root / expected).is_file():
             errors.append(f"Archivo esperado ausente: {expected}")
+    required = ["version: \"1.3.0\"", "Adaptive Discovery Engine",
+                "Smart Stage Gate Manager", "Automation Execution Coordinator"]
+    for marker in required:
+        if marker not in text:
+            errors.append(f"Contrato v1.3 ausente: {marker}")
     return errors
 
 

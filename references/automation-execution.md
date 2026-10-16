@@ -34,7 +34,7 @@ Resultado: `AUTOMATE_NOW`, `VALIDATE_FIRST`, `KEEP_MANUAL` o `SIMPLIFY_AGAIN`, c
 
 **No invocar agentes para mover campos de A a B si un webhook resuelve el problema.** No afirmar disponibilidad de un servicio externo sin verificarla.
 
-## 3. Diseño obligatorio (BLUEPRINT)
+## 3. Diseño obligatorio (DESIGN / BLUEPRINT)
 
 Completar `assets/automation-blueprint.md` con:
 
@@ -85,7 +85,7 @@ Completar `assets/automation-handoff.md`: flujo en lenguaje simple, arquitectura
 ## 8. Formato final según avance
 
 ```
-Modo seleccionado: BLUEPRINT | BUILD | PILOT | HANDOFF
+Modo seleccionado: DESIGN | BUILD | PILOT | HANDOFF
 Decisión de automatización: AUTOMATE_NOW | VALIDATE_FIRST | KEEP_MANUAL | SIMPLIFY_AGAIN
 Aprobación documentada: [alcance y sí/no]
 Hecho y verificado: [evidencia de archivos/pruebas/ejecución]
@@ -93,3 +93,7 @@ Pendiente: [accesos, pruebas, aprobación, despliegue]
 Métrica y condición de éxito: [baseline / objetivo / experimentos]
 Próxima decisión del usuario: [una sola]
 ```
+
+## 9. Automation Action Gate
+
+Al terminar ACCELERATE, presentar candidatos concretos y recomendar uno. Preguntar cómo continuar: `DESIGN`, `BUILD`, `PILOT` o `HANDOFF`. Si el proceso es inestable, recomendar `VALIDATE_FIRST` y el experimento necesario. `BUILD` requiere edición autorizada; `PILOT` permiso propio; producción nunca está implícita.

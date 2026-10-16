@@ -1,5 +1,7 @@
 # Musk Algorithm — Entrevista consultiva progresiva
 
+> En `discover` y `audit-live`, aplicar también `adaptive-discovery.md`, `sufficiency-evaluation.md` y `stage-gates.md`. La entrevista debe terminar la etapa; no es un fin en sí misma.
+
 ## Principio de interacción
 
 La conversación es la interfaz del algoritmo. El agente NO presenta un cuestionario genérico de 30 preguntas ni emite una lista de eliminaciones como hecho consumado. **Investiga una incertidumbre importante a la vez**, verifica la interpretación y plantea recomendaciones con alternativas que el dueño puede aceptar, modificar o rechazar.
@@ -79,6 +81,8 @@ Cada ~3–5 decisiones, mostrar compactamente:
 `✓ aprobadas: N · ⏳ pendientes: N · ? requieren evidencia: N`
 
 Agregar 1–3 próximas decisiones relevantes, no todo el histórico. Si el usuario pide pausa, recapitulación o el plan final, generar instantánea estructurada con `assets/decision-session-template.md`. No prometer persistencia de estado entre conversaciones a menos que se haya guardado realmente un archivo recuperable.
+
+Durante QUESTION, evaluar ganancia cada ~5 preguntas y suficiencia al completar las tres capas normales. Mostrar etapa, capa, preguntas, comprensión, requisitos e investigaciones abiertas. A 60 preguntas no iniciar una ordinaria adicional sin ampliación autorizada. Ante «no más preguntas» o «pasemos», consolidar inmediatamente y abrir el gate.
 
 ## Ejemplo A: tienda/marketplace desde cero
 

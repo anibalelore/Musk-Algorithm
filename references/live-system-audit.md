@@ -1,5 +1,7 @@
 # Musk Algorithm — Auditoría de sistemas existentes (sin cambios automáticos)
 
+Al recuperar un estado previo, leerlo antes de preguntar. Conservar etapa, contador, evidencia y decisiones; no volver a QUESTION si el material permite continuar. Migrar desde v1.2 agregando campos, nunca reinterpretando aprobaciones históricas.
+
 ## Alcance verificable
 
 Cuando el usuario aporta repo, proyecto abierto, documentación o credenciales, examinar **solo lo que el host y el usuario autorizan**. Si un recurso no está disponible, pedir acceso específico o continuar por entrevista de funcionamiento. No declarar «auditado en producción» un sistema revisado solo a nivel de código.

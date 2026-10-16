@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0 — 2026-10-16
+
+- Descubrimiento adaptativo en tres capas normales y tres opcionales, sin cuotas mínimas.
+- Matriz de suficiencia 0–4, revisión de rendimiento marginal y límite ordinario de 60 preguntas.
+- Smart Stage Gate con cierre formal, confirmación predeterminada y `auto_advance_enabled` opcional.
+- Continuidad de sesiones sin reiniciar preguntas ni alterar decisiones históricas.
+- Automation Architect & Implementer con modos `DESIGN`, `BUILD`, `PILOT` y `HANDOFF`.
+- Motor Python sin dependencias y pruebas conductuales para límites, transiciones, recuperación y permisos.
+- Demostraciones completas desde QUESTION hasta AUTOMATE y actualización compatible desde v1.2.
+
 ## 1.2.0 — 2026-10-15
 
 - La fase 5 ahora tiene un flujo explícito **de candidato a implementación comprobable**, no solo recomendaciones.
