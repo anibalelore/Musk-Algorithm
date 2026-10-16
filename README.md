@@ -1,9 +1,9 @@
-# Musk Algorithm by Ore
+# Musk Algorithm
 
 > **Skill independiente** para cuestionar requisitos, eliminar complejidad, simplificar procesos, acelerar ciclos y automatizar únicamente cuando tiene sentido.
 
 **Identificador instalable:** `musk-algorithm`  
-**Versión:** 1.1.0  
+**Versión:** 1.2.0  
 **Idioma:** español por defecto, responde en el idioma del usuario  
 **Formato:** [Agent Skills](https://agentskills.io/specification) (`SKILL.md`)  
 **Licencia:** MIT  
@@ -19,7 +19,7 @@ Esta implementación es **no oficial**; no está afiliada a Elon Musk, Tesla, Sp
 4. **ACCELERATE:** mide tiempos y elimina cuellos de botella.
 5. **AUTOMATE:** automatiza solo cuando el proceso es útil, estable y verificable.
 
-Primero conversa contigo para entender el negocio. Si ya hay un sistema, inspecciona las fuentes disponibles antes de emitir recomendaciones, luego **te pregunta qué mantener, simplificar, eliminar o posponer**. Solo después produce un diagnóstico con decisiones `KEEP`, `DELETE`, `SIMPLIFY`, `DEFER`, `VALIDATE` y `AUTOMATE_LATER`, flujos antes/después, riesgos y plan de ejecución. No modifica sistemas sin autorización. No depende de ORE Skill ni debe instalarse dentro de su repositorio.
+Primero conversa contigo para entender el negocio. Si ya hay un sistema, inspecciona las fuentes disponibles antes de emitir recomendaciones, luego **te pregunta qué mantener, simplificar, eliminar o posponer**. Solo después produce un diagnóstico con decisiones `KEEP`, `DELETE`, `SIMPLIFY`, `DEFER`, `VALIDATE` y `AUTOMATE_LATER`, flujos antes/después, riesgos y plan de ejecución. **En la fase 5**, puede entregar un plano (`BLUEPRINT`), implementar código con acceso y permiso (`BUILD`), validar piloto (`PILOT`) o preparar un traspaso (`HANDOFF`). No modifica sistemas sin autorización. No depende de ORE Skill ni debe instalarse dentro de su repositorio.
 
 ## Estructura
 
@@ -29,6 +29,8 @@ musk-algorithm/
 ├── agents/openai.yaml            # Metadatos opcionales para Codex
 ├── assets/audit-template.md      # Formato de auditoría
 ├── assets/decision-session-template.md  # Registro de decisiones y estado de conversación
+├── assets/automation-blueprint.md      # Plano técnico verificable
+├── assets/automation-handoff.md        # Traspaso sin acceso técnico
 ├── references/
 │   ├── interactive-interview.md  # Entrevista guiada y aprobaciones
 │   ├── live-system-audit.md     # Revisión basada en evidencia
@@ -36,6 +38,7 @@ musk-algorithm/
 │   ├── operations-playbook.md
 │   ├── engineering-playbook.md
 │   ├── automation-playbook.md
+│   ├── automation-execution.md  # Construir, probar y entregar
 │   ├── scoring-and-evidence.md
 │   └── examples.md
 ├── scripts/
@@ -122,6 +125,17 @@ No interroga con 30 preguntas: **una pregunta prioritaria por turno**. Nunca asu
 - «Quiero un agente IA para generar reportes. Demuéstrame primero si realmente hace falta.»
 - «Revisa el onboarding: dame una matriz KEEP / DELETE / SIMPLIFY / DEFER / VALIDATE.»
 - «Modo `quick`: cuestiona esta función antes de que la construyamos.»
+
+## Paso 5: automatización guiada o ejecutada (v1.2)
+
+- `BLUEPRINT`: especificación con evento, datos, reglas, APIs, errores, pruebas, costo y métrica.
+- `BUILD`: si el agente tiene acceso a tu código y permiso, modifica **solo el alcance autorizado**, crea tests y documenta evidencias. Requiere entorno que permita leer/escribir/ejecutar; instalar una skill no concede esos accesos.
+- `PILOT`: ejecuta pruebas controladas (no confundir mocks con una integración real); producción requiere permiso separado.
+- `HANDOFF`: si falta acceso o conocimiento especializado, crea un paquete para otro agente o desarrollador, sin dependencia de ORE Skill.
+
+**Ejemplo para marketplace:** confirmar pago mediante evento validado → crear una sola solicitud de despacho → notificar → registrar errores/reintentos. Primero reglas y webhooks; IA solo para excepciones ambiguas donde exista evaluación y revisión humana.
+
+**Ejemplo de activación:** «Musk, terminamos de optimizar el despacho. Ahora evalúa si automatizarlo conviene. Muéstrame el flujo propuesto y, si apruebo, impleméntalo en este repositorio sin desplegar todavía».
 
 ## Flujo recomendado
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0 — 2026-10-15
+
+- La fase 5 ahora tiene un flujo explícito **de candidato a implementación comprobable**, no solo recomendaciones.
+- Cuatro resultados: `BLUEPRINT`, `BUILD`, `PILOT`, `HANDOFF`, elegidos con el usuario según acceso y autorización.
+- Nuevo playbook de construcción con pruebas, control de idempotencia, rollback, evidencia y delimitación de permisos.
+- Plantillas independientes de arquitectura y handoff; ejemplos de logística e-commerce y rescate EV.
+- Continúa sin dependencia de ORE Skill, credenciales ni servicios externos.
+
 ## 1.1.0 — 2026-10-15
 
 - La interacción guiada es el modo principal; una pregunta prioritaria por turno, sin cuestionarios masivos.

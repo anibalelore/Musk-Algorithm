@@ -36,7 +36,19 @@ class SkillTests(unittest.TestCase):
         self.assertIn("APPROVED", interview)
         self.assertIn("No declarar", system)
         self.assertTrue((ROOT / "assets/decision-session-template.md").is_file())
-        self.assertIn('version: "1.1.0"', text)
+        self.assertIn('version: "1.2.0"', text)
+
+    def test_automation_execution(self):
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        execution = (ROOT / "references/automation-execution.md").read_text(encoding="utf-8")
+        for mode in ["BLUEPRINT", "BUILD", "PILOT", "HANDOFF"]:
+            self.assertIn(mode, skill)
+            self.assertIn(mode, execution)
+        self.assertIn("no desplegar", skill.lower())
+        self.assertIn("idempotencia", execution.lower())
+        self.assertIn("sin permiso", execution.lower())
+        self.assertTrue((ROOT / "assets/automation-blueprint.md").exists())
+        self.assertTrue((ROOT / "assets/automation-handoff.md").exists())
 
     def test_personal_install(self):
         with tempfile.TemporaryDirectory() as folder:

@@ -2,6 +2,10 @@
 
 La etapa 5 no es sinónimo de usar LLM. El criterio es costo total, confiabilidad, auditabilidad y valor marginal.
 
+## Construcción y ejecución
+
+Si el usuario quiere pasar del análisis al software real, leer `references/automation-execution.md`, completar `assets/automation-blueprint.md` y solicitar permisos según etapa. Si faltan herramientas, generar `assets/automation-handoff.md`; no asumir acceso a producción.
+
 ## Puertas previas obligatorias
 
 1. ¿Este paso realmente debe seguir existiendo tras las etapas 1–2?

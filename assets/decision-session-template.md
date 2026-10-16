@@ -12,6 +12,8 @@
 **Fuentes consultadas:**
 **Fuentes pendientes:**
 **Cambios técnicos autorizados:** NO (salvo autorización separada documentada)
+**Modo de automatización:** pendiente | BLUEPRINT | BUILD | PILOT | HANDOFF
+**Aprobaciones por separado:** lectura [ ] · edición [ ] · piloto [ ] · producción [ ]
 
 ## Cómo funciona el negocio (mapa vivo)
 

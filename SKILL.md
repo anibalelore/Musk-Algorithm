@@ -1,10 +1,10 @@
 ---
 name: musk-algorithm
-description: "Consultor interactivo que entrevista al dueño para entender un negocio nuevo o audita un sistema existente y negocia, paso a paso, qué mantener, eliminar, simplificar, posponer y automatizar; aplica en orden las cinco etapas del algoritmo de Musk. Actívala para discovery, auditoría de repositorios, MVP, operaciones, UX, SaaS, e-commerce o agentes IA."
+description: "Consultor interactivo para negocios nuevos y sistemas existentes: cuestiona, elimina, simplifica, acelera y finalmente diseña o implementa automatizaciones aprobadas con herramientas disponibles. Entrevista al usuario, audita repositorios y procesos, negocia decisiones, produce planos ejecutables y verifica resultados; no despliega sin permiso."
 license: MIT
 compatibility: "Estándar Agent Skills; funciona sin API keys, ORE Skill ni dependencias externas. Las auditorías de código requieren herramientas de lectura del host. Los scripts opcionales requieren Python 3.9+."
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   language: "es-en"
   methodology: "five-step-engineering-algorithm"
 ---
@@ -104,9 +104,19 @@ Definir evento inicial, evento final, tiempo total, tiempos de espera, retrabajo
 
 ### 5 · AUTOMATE — Automatizar al final
 
-Elegir automatización por reglas/eventos, integración/API, RPA o IA/agentes **solo después** de validar que el proceso debe permanecer y es estable. Preferir determinismo a LLM para cálculos, pagos, estados, reglas y notificaciones transaccionales. Usar IA en interpretación, extracción o casos ambiguos con evaluación y escalamiento humano. Exigir idempotencia, reintentos, observabilidad, rollback, privacidad, seguridad, costos y manejo de excepciones donde corresponda.
+Elegir automatización por reglas/eventos, integración/API, scripts, RPA o IA/agentes **solo después** de validar que el proceso debe permanecer y es estable. Preferir determinismo a LLM para cálculos, pagos, estados, reglas y notificaciones transaccionales. Usar IA en interpretación, extracción o casos ambiguos con evaluación y escalamiento humano. Exigir idempotencia, reintentos, observabilidad, rollback, privacidad, seguridad, costos y manejo de excepciones donde corresponda.
 
-**Salida:** sí/no ahora; sistema mínimo; disparadores, entradas, validaciones, outputs, errores, intervención humana, costo y test de aceptación.
+**Esta etapa puede pasar de consultoría a implementación.** Leer obligatoriamente `references/automation-execution.md` y, para especificar cada flujo, `assets/automation-blueprint.md`. El agente anfitrión aporta sus herramientas (archivos, terminal, repositorio, pruebas, despliegue, APIs); la skill aporta las decisiones, la arquitectura y los controles. No presumir que la skill por sí sola dispone de credenciales, conexiones, ejecución persistente o infraestructura.
+
+**Modos de entrega seleccionados con el usuario, sin preguntarle de nuevo lo que ya decidió:**
+- `BLUEPRINT`: diseño ejecutable, arquitectura, contrato de eventos, pruebas, estimación fundada y siguiente acción. Es la alternativa cuando no hay acceso o el usuario solo quiere la guía.
+- `BUILD`: con proyecto y permisos de escritura, implementar de manera incremental, añadir pruebas y presentar diffs/resultados reales; no desplegar ni activar cambios en vivo sin permiso distinto.
+- `PILOT`: cuando existen un entorno controlado, datos y permiso apropiados, ejecutar una prueba de extremo a extremo con registros y criterios de aceptación. No simular una integración real como si fuese una prueba en producción.
+- `HANDOFF`: cuando faltan capacidades, acceso o expertise, crear un documento autocontenido para otro agente/desarrollador usando `assets/automation-handoff.md`; no obligar a instalar ORE ni inventar conexiones.
+
+**Puertas de salida:** candidato aprobado → plano aceptado → implementación autorizada → pruebas verificadas → piloto autorizado → despliegue autorizado → monitoreo/rollback. Si falta una puerta, detenerse en el último entregable legítimo. Nunca equiparar `documentado`, `codificado`, `probado`, `desplegado` y `operativo`.
+
+**Salida:** decisión sí/no/todavía no; plano verificable; y, cuando proceda y haya permisos/herramientas, implementación probada con evidencia. Separar claramente pendientes, límites y acciones que requieren personas o sistemas externos.
 
 ## Clasificación compacta de decisiones
 
@@ -130,7 +140,7 @@ No todas las filas deben llegar a `AUTOMATE`. Un proceso eliminado ya está resu
 3. **Tabla de decisiones**: elemento | evidencia | decisión | fundamento | riesgo | próximo paso.
 4. **Antes → después** del recorrido principal, con excepciones.
 5. **Plan de aplicación** en etapas: cambios seguros, validación, métricas, dueños.
-6. **Automatización**: no / todavía no / sí, con criterios explícitos.
+6. **Automatización**: no / todavía no / sí, con criterios explícitos, más `BLUEPRINT` / `BUILD` / `PILOT` / `HANDOFF` y evidencia real del estado alcanzado.
 
 Para solicitudes `quick`, usar un resumen de 5–10 líneas. Para `audit` o `implementation`, usar la plantilla `assets/audit-template.md` y referencias pertinentes. Incluir incertidumbres significativas. En `discover` y `audit-live`, el diálogo y aprobación del usuario son parte del trabajo, no una interrupción. En `report` directo, avanzar con supuestos explícitos sin presentar aprobaciones inventadas.
 
@@ -139,7 +149,7 @@ Para solicitudes `quick`, usar un resumen de 5–10 líneas. Para `audit` o `imp
 - **Product / MVP:** auditar funciones, onboarding, costos de mantenimiento, propuesta de valor y riesgos de abandono. Leer `references/product-playbook.md`.
 - **Business operations:** mapear pasos, handoffs, restricciones y ciclo físico. Leer `references/operations-playbook.md`.
 - **Architecture / repository:** mapear módulos, contratos, duplicación, dependencias y pruebas; proponer diffs progresivos. Leer `references/engineering-playbook.md`.
-- **AI automation:** comprobar necesidad, estabilidad, alternativa determinista y evals. Leer `references/automation-playbook.md`.
+- **AI automation:** comprobar necesidad, estabilidad, alternativa determinista y evals. Leer `references/automation-playbook.md`. Para pasar de recomendaciones a construir, leer `references/automation-execution.md` y usar `assets/automation-blueprint.md` y `assets/automation-handoff.md` según modo.
 - **Decision / reporting:** usar `references/scoring-and-evidence.md` para comparaciones transparentes y `assets/audit-template.md` para auditorías completas.
 - **Interacción:** `references/interactive-interview.md` define secuencia de preguntas, aprobación y checkpoints; `assets/decision-session-template.md` sirve de traspaso.
 - **Sistema funcionando:** `references/live-system-audit.md` define inspección de repositorio/operación, evidencia y límites de acceso.
